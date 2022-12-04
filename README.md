@@ -1,5 +1,8 @@
 Challenge #2
 We need to write code that will query the meta data of an instance within AWS or Azure or GCP and provide a json formatted output.
+
+
+
 The choice of language and implementation is up to you
 I've created a linux virtual machine and logged into it and sent this API request :
 curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | python -m json.tool
