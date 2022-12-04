@@ -1,0 +1,9 @@
+I've created a linux virtual machine and logged into it and sent this API request :
+
+curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | python -m json.tool
+
+If the jq utility is missing, use | python -m json.tool instead.
+
+Response : The response is a JSON string.
+
+The Azure Instance Metadata Service (IMDS) provides information about currently running virtual machine instances. You can use it to manage and configure your virtual machines. This information includes the SKU, storage, network configurations, and upcoming maintenance events. 
