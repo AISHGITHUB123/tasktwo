@@ -26,7 +26,7 @@ $respraw.Content
 
 $respraw.Content | ConvertFrom-Json | ConvertTo-Json -Depth 6
 
-As we had kind of format so rather using invoke web request we can use invoke rest method this will prekind the format into a native powershell object
+As we had kind of raw format so rather using invoke web request we can use invoke rest method( it automatically parses the JSON text returned into a [pscustomobject] graph as if ConvertFrom-Json had been applied to it) this will prekind the format into a native powershell object
 
 #A better way that automatically creates us a nice PowerShell object with the response
 -------------------------------------------------------------------------------------
