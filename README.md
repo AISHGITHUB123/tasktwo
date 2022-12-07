@@ -9,7 +9,7 @@ The choice of language and implementation is up to you
 In orderto query the meta data of an instance within Azure and provide a json formatted output.
 We use Azure Instance Metadata Service (IMDS) provides information about currently running virtual machine instances.
 
-Let's say we have a windows VM :This VM has it's won name but it knows nothing about the azure resource manager
+Let's say we have a windows VM :This VM has it's own name but it knows nothing about the azure resource manager
 
 We use here the invoke web request to talk to 169.254.169.254 and to metadata endpoint and pass the api version latest
 
@@ -19,16 +19,15 @@ $respraw=Invoke-WebRequest -Headers @{"Metadata"="true"} -Method GET -Proxy $Nul
 we can see the response here with $respraw : It will return everything - comprises of everything compute,n/w ,license,os disk data 
 userdata,tags info,
 $respraw
+
+
 $respraw.Content
+
+
 $respraw.Content | ConvertFrom-Json | ConvertTo-Json -Depth 6
 
-As we had kind kind of format so rather using invoke web request we can use invoke rest method this will prekind the format into a native
-into a native powershell object
-----------------------------
-$resp - return an obj
-$resp.compute - returns the compute part..it makes our task easy to interact
+As we had kind of format so rather using invoke web request we can use invoke rest method this will prekind the format into a native powershell object
 
------
 #A better way that automatically creates us a nice PowerShell object with the response
 -------------------------------------------------------------------------------------
 $resp=Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET -Proxy $Null -Uri "http://169.254.169.254/metadata/instance?api-version=2021-01-01"
@@ -53,8 +52,6 @@ login to the vm and pass this API request :
 curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
 
 This example bypasses proxies. You must bypass proxies when querying IMDS. 
-
-IMDS is not intended to be used behind a proxy and doing so is unsupported. Most HTTP clients provide an option for you to disable proxies on your requests, and this functionality must be utilized when communicating with IMDS.
 
 The jq utility is available in many cases, but not all. If the jq utility is missing, use | python -m json.tool instead.
 
